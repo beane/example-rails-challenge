@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Transaction time:</strong>
+  <%= @customer_transaction.transaction_time %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @customer_transaction.amount %>
+</p>
+
+<p>
+  <strong>Unique code:</strong>
+  <%= @customer_transaction.unique_code %>
+</p>
+
+<p>
+  <strong>Paid:</strong>
+  <%= @customer_transaction.paid %>
+</p>
+
+<p>
+  <strong>Refunded:</strong>
+  <%= @customer_transaction.refunded %>
+</p>
+
+<%= link_to 'Edit', edit_customer_transaction_path(@customer_transaction) %> |
+<%= link_to 'Back', customer_transactions_path %>
