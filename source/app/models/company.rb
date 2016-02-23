@@ -1,3 +1,3 @@
 class Company < ActiveRecord::Base
-  has_many :customer_transactions, as: :customer
+  has_many :customer_transactions, as: :customer, dependent: :destroy
 end

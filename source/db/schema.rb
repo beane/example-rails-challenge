@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223030334) do
+ActiveRecord::Schema.define(version: 20160224032802) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -28,12 +28,12 @@ ActiveRecord::Schema.define(version: 20160223030334) do
     t.datetime "transaction_time"
     t.float    "amount"
     t.string   "unique_code"
-    t.boolean  "paid"
-    t.boolean  "refunded"
+    t.boolean  "paid",             default: true
+    t.boolean  "refunded",         default: false
     t.integer  "customer_id"
     t.string   "customer_type"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   add_index "customer_transactions", ["customer_id", "customer_type"], name: "index_customer_transactions_on_customer_id_and_customer_type"
