@@ -12,16 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :transaction_time %><br>
-    <%= f.datetime_select :transaction_time %>
-  </div>
-  <div class="field">
     <%= f.label :amount %><br>
     <%= f.text_field :amount %>
-  </div>
-  <div class="field">
-    <%= f.label :unique_code %><br>
-    <%= f.text_field :unique_code %>
   </div>
   <div class="field">
     <%= f.label :paid %><br>
@@ -31,7 +23,19 @@
     <%= f.label :refunded %><br>
     <%= f.check_box :refunded %>
   </div>
+
+  <select id="customer_transaction_customer_type_and_id" name="customer_transaction[customer_type_and_id]">
+    <% ([nil] + @customers).each do |customer| %>
+      <% if customer.nil? %>
+        <option value="" selected="selected">-</option>
+      <% else %>
+        <% customer_name = customer.is_a?(User) ? "#{customer.first_name} #{customer.last_name}" : customer.name %>
+        <option value=<%= "#{customer.class}.#{customer.id}" %>> <%= customer_name %></option>
+      <% end %>
+    <% end %>
+  </select>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Charge Customer'%>
   </div>
 <% end %>

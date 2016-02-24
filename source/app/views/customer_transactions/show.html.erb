@@ -25,5 +25,10 @@
   <%= @customer_transaction.refunded %>
 </p>
 
+<p>
+  <strong>Customer Name</strong>
+  <%= @customer_transaction.customer.display_name %>
+</p>
+
 <%= link_to 'Edit', edit_customer_transaction_path(@customer_transaction) %> |
 <%= link_to 'Back', customer_transactions_path %>

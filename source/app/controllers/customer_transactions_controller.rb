@@ -5,6 +5,9 @@ class CustomerTransactionsController < ApplicationController
   # GET /customer_transactions.json
   def index
     @customer_transactions = CustomerTransaction.all
+    @failed = CustomerTransaction.failed
+    @disputed = CustomerTransaction.disputed
+    @successful = CustomerTransaction.successful
   end
 
   # GET /customer_transactions/1
@@ -15,6 +18,7 @@ class CustomerTransactionsController < ApplicationController
   # GET /customer_transactions/new
   def new
     @customer_transaction = CustomerTransaction.new
+    @customers = User.all + Company.all
   end
 
   # GET /customer_transactions/1/edit
@@ -24,13 +28,18 @@ class CustomerTransactionsController < ApplicationController
   # POST /customer_transactions
   # POST /customer_transactions.json
   def create
-    @customer_transaction = CustomerTransaction.new(customer_transaction_params)
+    request_params = customer_transaction_params
+    customer_type, customer_id = request_params.delete('customer_type_and_id').split('.')
+    request_params['customer_type'] = customer_type
+    request_params['customer_id'] = customer_id
+    @customer_transaction = CustomerTransaction.new(request_params)
 
     respond_to do |format|
       if @customer_transaction.save
         format.html { redirect_to @customer_transaction, notice: 'Customer transaction was successfully created.' }
         format.json { render :show, status: :created, location: @customer_transaction }
       else
+        @customers = User.all + Company.all
         format.html { render :new }
         format.json { render json: @customer_transaction.errors, status: :unprocessable_entity }
       end
@@ -69,6 +78,6 @@ class CustomerTransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_transaction_params
-      params.require(:customer_transaction).permit(:transaction_time, :amount, :unique_code, :paid, :refunded)
+      params.require(:customer_transaction).permit(:amount, :customer_type_and_id)
     end
 end
