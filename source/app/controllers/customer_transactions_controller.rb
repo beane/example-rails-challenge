@@ -1,5 +1,5 @@
 class CustomerTransactionsController < ApplicationController
-  before_action :set_customer_transaction, only: [:show, :edit, :update, :destroy]
+  before_action :set_customer_transaction, only: [:edit, :update, :destroy]
 
   # GET /customer_transactions
   # GET /customer_transactions.json
@@ -13,6 +13,7 @@ class CustomerTransactionsController < ApplicationController
   # GET /customer_transactions/1
   # GET /customer_transactions/1.json
   def show
+    @customer_transaction = CustomerTransaction.find_by_unique_code(params[:id])
   end
 
   # GET /customer_transactions/new

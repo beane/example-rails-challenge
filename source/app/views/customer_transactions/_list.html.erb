@@ -15,7 +15,8 @@
     <% customer_transactions.each do |customer_transaction| %>
       <tr>
         <% customer = customer_transaction.customer %>
-        <td><%= link_to customer_transaction.unique_code, customer_transaction %></td>
+        <% code = customer_transaction.unique_code %>
+        <td><a href=/customer_transactions/<%= code %>><%= code %></a></td>
         <td><%= customer_transaction.transaction_time %></td>
         <td><%= customer_transaction.amount %></td>
         <td><%= customer.display_name %></td>
